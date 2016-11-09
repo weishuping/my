@@ -1,0 +1,23 @@
+{
+  "name": "runoob",
+  "version": "1.0.0",
+  "description": "测试",
+  "main": "server.js",
+  "scripts": {
+    "test": "make test",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/weishuping/my.git"
+  },
+  "author": "weishuping",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/weishuping/my/issues"
+  },
+  "homepage": "https://github.com/weishuping/my#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
