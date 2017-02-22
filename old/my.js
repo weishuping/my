@@ -9,8 +9,9 @@ function load(){
 	})
 
 	$("ul.options").on('click','li',function(){
-		//$(".option").attr("value",this.firstChild);
-		$(".option").html(this.firstChild);
+        console.log(this);
+		$(".option").attr("value",$(this).text());
+		// $(".option").html(this.firstChild);
 		$(".options").toggle()
 	})
 
@@ -70,25 +71,25 @@ var isPalindrome = function(x) {
 };
 //isPalindrome(1221)
 ///*改派转发url*/
-        ,flowForwardUrl=hrPath+"/ssc/task/reassignmentTask" 
-/**
-         * 选择转发用户后对话框中的转发按钮
-         */
-        forwardTo:function(){
-            var o=this
-                ,target = o.forwardTarget();
-            if(target == null){
-                u.messageDialog({msg: "请选择转发接收人", title: "提示", btnText: "确定"});
-                return;
-            }
-            $.post(flowForwardUrl,{
-                taskID:o.params.taskId,
-                userID:target,
-                comment:o.approveOpinion()
-            },function() {
-                u.messageDialog({msg: "转发完成", title: "提示", btnText: "确定"});
-                o.back();
-            });
-            $("#forwardTaskDialog").modal('hide');
+//         ,flowForwardUrl=hrPath+"/ssc/task/reassignmentTask" 
+// /**
+//          * 选择转发用户后对话框中的转发按钮
+//          */
+//         forwardTo:function(){
+//             var o=this
+//                 ,target = o.forwardTarget();
+//             if(target == null){
+//                 u.messageDialog({msg: "请选择转发接收人", title: "提示", btnText: "确定"});
+//                 return;
+//             }
+//             $.post(flowForwardUrl,{
+//                 taskID:o.params.taskId,
+//                 userID:target,
+//                 comment:o.approveOpinion()
+//             },function() {
+//                 u.messageDialog({msg: "转发完成", title: "提示", btnText: "确定"});
+//                 o.back();
+//             });
+//             $("#forwardTaskDialog").modal('hide');
 
-        },
+//         },

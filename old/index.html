@@ -24,6 +24,7 @@
 	    	padding: 0 0 0 10px;
             line-height: 34px;
 	    	border: 1px solid #0CC;
+            cursor: default;
 	    }
         .icon {
             position: absolute;
@@ -31,6 +32,7 @@
             right: 12px;
         }
         ul.options {
+            cursor: default;
             position: absolute;
             width: 188px;
             margin: 0px;
@@ -38,6 +40,7 @@
             border: 1px solid #ccc;
             border-top: 0;
             display: none;
+            background: #fff;
             /*webkit-box-shadow:0 0 10px #CCC, 
                             0 0 10px #CCC,
                             0 0 10px #CCC,
@@ -59,6 +62,7 @@
     		list-style: none;
             cursor: pointer;
             padding: 3px;
+            z-index: 999;
     	}
         ul.options li:hover {
             background-color: #e9f7fc;
@@ -100,21 +104,62 @@
         		<li val="6">6</li> -->
         	</ul>
         </div>
-        <div style="position: relative;width:60px;height:60px;overflow:hidden;background: blue;">
-            <div style="position:absolute;width:300px;height:300px;background: red;    overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
-                    <!-- 希望该div的内容能全部显示。 -->
-                    123456789012345678901234567890
-            </div>
-        </div> 
-        <div class="keywords"  contenteditable="true">
+       
+       <!--  <div class="keywords"  contenteditable="true">
             <span class="word">123<i class="hrfont">&#xe60c;</i></span>
             <span class="word">123<i class="hrfont">&#xe60c;</i></span>
             <span class="word">123</span>
             <span class="word">123</span>
         </div>
-
+ -->
+        <input type="checkbox"/>
+        <div class="word"  contenteditable="true">
+            $<span>123</span>
+        </div>
+        <div class="word"  contenteditable="true">
+            $<span>123</span>
+        </div>
+        <div class="word"  contenteditable="true">
+            $<span>123</span>
+        </div>
         <input type="text" name="" value="fff" style="height: 35px; line-height: 36px; width: 80%; " />
+       
         <textarea name="w" maxlength="3"></textarea>
+
+         <select width="200px">
+            
+            <option>1</option>
+            <option>1</option>
+            <option>1</option>
+            <option>1</option>
+
+        </select>
+        <span style="border:1px solid #333333;position:absolute; overflow:hidden;">
+
+        <select style="margin:-2;">
+
+        <option value="php">php</option>
+
+        <option value="jquery">jquery</option>
+
+        <option value="python">python</option>
+
+        <option value="ruby">ruby</option>
+
+        </select> 
+
+        </span> 
+        <br/>
+        <span style="position:absolute;border:1px solid #d85342;width:80;height:20">
+        <select style="position:absolute;clip:rect(2 80 20 2);margin:-2;width:84;">
+        <option value="http://www.flash8.net">闪客之吧</option>
+        <option value="http://www.blueidea.com">蓝色理想</option>
+        <option value="http://www.5d.cn">5D多媒体</option>
+        <option value="http://www.csdn.net">CSDN</option>
+        <option value=" http://msdn.microsoft.com/">MSDN</option>
+        </select>
+        </span>
+
     <script src="my.js" type="text/javascript" charset="utf-8" ></script>
     </body>
 </html>
