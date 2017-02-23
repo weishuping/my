@@ -92,3 +92,4 @@ var isPalindrome = function(x) {
             $("#forwardTaskDialog").modal('hide');
 
         },
+//c1
