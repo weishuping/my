@@ -86,11 +86,11 @@ var isPalindrome = function(x) {
                 userID:target,
                 comment:o.approveOpinion()
             },function() {
-                u.messageDialog({msg: "转发完成", title: "提示", btnText: "确定"});
+                u.messageDialog({msg: "转发完成", title: "提示", btnText: "确定哈哈"});
                 o.back();
             });
             $("#forwardTaskDialog").modal('hide');
-
+            //91,c4
         },
 //c1
 //c3
