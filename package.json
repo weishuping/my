@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/weishuping/my#readme",
   "dependencies": {
-    "express": "^4.14.0"
+    "express": "^4.14.0",
+    "koa": "^2.0.0"
   }
 }
