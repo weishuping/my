@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>轮播图</title>
+        <style type="text/css">
+            .main {
+                width: 500px;
+                height: 300px;
+                border: 1px solid #cec;
+                margin: 0 auto;
+                position: relative;
+                overflow: hidden;
+            }
+            .main img {
+                width: 500px;
+                height: 300px;
+                
+            }
+            ul {
+                padding: 0;
+                margin: 0;
+                width: 1500px;
+                
+                position: absolute;
+                left: 0;
+            }
+            ul li {
+                display: inline-block;
+            }
+            .main li {
+                float: left;
+            }
+            .pagination {
+                position: absolute;
+                bottom: 4px;
+                left: 50%;
+            }
+            .circle {
+                display: inline-block;
+                width: 7px;
+                height: 7px;
+                margin: 0 3px;
+                border: 1px solid #fff;
+                border-radius: 50%;
+                cursor: pointer;
+            }
+            .color {
+                background: red;
+            }
+        </style>
+        <script src="../old/jquery-1.11.2.js" type="text/javascript"></script>
+        
+    </head>
+    <body>
+        <div>
+            <div class="main">
+                <ul>
+                    <li><img src="./images/p2.png"></li>
+                    <li><img src="./images/p3.png"></li>
+                    <li><img src="./images/p4.png"></li>
+                </ul>
+                
+                <div class="pagination">
+                    <span class="circle"></span>
+                    <span class="circle"></span>
+                    <span class="circle"></span>
+                </div>
+                
+            </div>
+            hhhhhhhhhhhhhhhhhhhhhhhh
+        </div>
+    </body>
+    <script type="text/javascript">
+        var timer = null, left = 0, direction = '', circles = $('.circle').length, index=0;
+        //timer = setInterval(autoPlay, 1000);
+        //$('#currentImg')[0].src="./images/p2.png";\
+        //动画函数
+        timer = setInterval(loopImg, 2000);
+        function loopImg() {
+            //判断是左滑动还是右滑动
+            if(left == -1000) {
+                direction = 'right';
+            } else if(left == 0){
+                direction = 'left';
+            }
+            if(direction === 'left') {
+                $('.main ul').animate({left: left},500);
+                left -= 500;
+                clearColor();
+                index++;
+            } else {
+                $('.main ul').animate({left: left},500);
+                left += 500;
+                clearColor();
+                index--;
+            }
+            
+        }
+        function clearColor() {
+            for(var i=0; i<circles; i++) {
+                $($('.circle')[i]).removeClass('color');
+            }
+            $($('.circle')[index]).addClass('color');
+        }
+        //点击小圆点
+        for(var i=0; i<circles; i++){
+            (function(i){
+                console.log(i);
+                $($('.circle')[i]).on('click',function(event){
+                    index =i;
+                    clearColor();
+                    $('.main ul').animate({left: left*i},500);
+                });
+                
+            })(i);
+        }
+        $('.main').on('mouseenter mouseleave', function(event){
+            if(event.type == 'mouseenter') {
+                clearInterval(timer);
+            } else if(event.type == 'mouseleave'){
+                clearInterval(timer);
+                timer = setInterval(loopImg, 2000);
+            }
+        });     
+    </script>
+    <script src='./index.js'></script>
+</html>

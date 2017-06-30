@@ -261,3 +261,6 @@ var addTwo = function(a, b) {
     }
     return sum;
 }
+$.getJSON('./test.json',function(){
+    console.log(name);
+});

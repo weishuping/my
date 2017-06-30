@@ -6,3 +6,6 @@
 $('button').on('click', function() {
     $('ul').toggle();
 });
+$.getJSON('../test.json',function(data){
+    console.log(data.name);
+});
