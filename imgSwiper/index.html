@@ -5,7 +5,7 @@
         <title>轮播图</title>
         <style type="text/css">
             .main {
-                width: 500px;
+                width: 800px;
                 height: 300px;
                 border: 1px solid #cec;
                 margin: 0 auto;
@@ -13,14 +13,14 @@
                 overflow: hidden;
             }
             .main img {
-                width: 500px;
+                width: 800px;
                 height: 300px;
                 
             }
             ul {
                 padding: 0;
                 margin: 0;
-                width: 1500px;
+                /*width: 1500px;*/
                 
                 position: absolute;
                 left: 0;
@@ -59,6 +59,7 @@
                     <li><img src="./images/p2.png"></li>
                     <li><img src="./images/p3.png"></li>
                     <li><img src="./images/p4.png"></li>
+                    <!--<li><img src="./images/p5.png"></li>-->
                 </ul>
                 
                 <div class="pagination">
@@ -73,56 +74,70 @@
     </body>
     <script type="text/javascript">
         var timer = null, left = 0, direction = '', circles = $('.circle').length, index=0;
-        //timer = setInterval(autoPlay, 1000);
-        //$('#currentImg')[0].src="./images/p2.png";\
+        //第一种动画方式，宽度500
         //动画函数
-        timer = setInterval(loopImg, 2000);
-        function loopImg() {
-            //判断是左滑动还是右滑动
-            if(left == -1000) {
-                direction = 'right';
-            } else if(left == 0){
-                direction = 'left';
-            }
-            if(direction === 'left') {
-                $('.main ul').animate({left: left},500);
-                left -= 500;
-                clearColor();
-                index++;
-            } else {
-                $('.main ul').animate({left: left},500);
-                left += 500;
-                clearColor();
-                index--;
-            }
+        //!!!大图不要用animate，容易在滚动的时候有留白。。直接用css。小图可以用animate
+        // timer = setInterval(loopImg, 2000);
+        // function loopImg() {
+        //     //判断是左滑动还是右滑动
+        //     if(left == -1600) {
+        //         direction = 'right';
+        //     } else if(left == 0){
+        //         direction = 'left';
+        //     }
+        //     if(direction === 'left') {
+        //         $('.main ul').css({left: left});
+        //         left -= 800;
+        //         clearColor();
+        //         index++;
+        //     } else {
+        //         $('.main ul').css({left: left});
+        //         left += 800;
+        //         clearColor();
+        //         index--;
+        //     }
             
-        }
-        function clearColor() {
-            for(var i=0; i<circles; i++) {
-                $($('.circle')[i]).removeClass('color');
-            }
-            $($('.circle')[index]).addClass('color');
-        }
-        //点击小圆点
-        for(var i=0; i<circles; i++){
-            (function(i){
-                console.log(i);
-                $($('.circle')[i]).on('click',function(event){
-                    index =i;
-                    clearColor();
-                    $('.main ul').animate({left: left*i},500);
-                });
+        // }
+        // //清除小圆点
+        // function clearColor() {
+        //     for(var i=0; i<circles; i++) {
+        //         $($('.circle')[i]).removeClass('color');
+        //     }
+        //     $($('.circle')[index]).addClass('color');
+        // }
+        // //点击小圆点
+        // for(var i=0; i<circles; i++){
+        //     (function(i){
+        //         console.log(i);
+        //         $($('.circle')[i]).on('click',function(event){
+        //             index =i;
+        //             clearColor();
+        //             $('.main ul').animate({left: left*i},500);
+        //         });
                 
-            })(i);
-        }
-        $('.main').on('mouseenter mouseleave', function(event){
-            if(event.type == 'mouseenter') {
-                clearInterval(timer);
-            } else if(event.type == 'mouseleave'){
-                clearInterval(timer);
-                timer = setInterval(loopImg, 2000);
-            }
-        });     
+        //     })(i);
+        // }
+        // $('.main').on('mouseenter mouseleave', function(event){
+        //     if(event.type == 'mouseenter') {
+        //         clearInterval(timer);
+        //     } else if(event.type == 'mouseleave'){
+        //         clearInterval(timer);
+        //         timer = setInterval(loopImg, 2000);
+        //     }
+        // });
+        //第二种实现方式 无缝滚动。。需要考虑速度???
+        //这种方式滚动会有很大的留白，所以要改变animate的速度
+        timer = setInterval(scroller, 3000);
+        function scroller() {
+            var $self = $('.main').find('ul');
+            var width = $self.find('li:first').width();
+            $self.animate({left: -width},10,function(){
+                $self.css({left: 0}).find('li:first').appendTo($self);
+            });
+        }    
+        //第三种
+
+        
     </script>
     <script src='./index.js'></script>
 </html>
