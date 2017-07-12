@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href='../fullcalendar/fullcalendar.css' rel='stylesheet' />
+<link href='../fullcalendar/style.css' rel='stylesheet' />
+<script src='../lib/jquery.min.js'></script>
+<script src='../fullcalendar/moment.min.js'></script>
+<script src='../fullcalendar/fullcalendar.js'></script>
+<script src='../fullcalendar/zh-cn.js'></script>
+<style type="text/css">
+	.bg-color {
+		background-color: red;
+	}
+</style>
+<script>
+
+	//设置按钮默认状态
+	var boolStr = true;
+
+	$(document).ready(function() {
+	
+		var date = new Date();
+		var d = date.getDate();
+		var m = date.getMonth();
+		var y = date.getFullYear();
+		
+		calendar = $('#calendar').fullCalendar({
+			header: {
+				center: 'prev,next today',
+				left: 'title',
+				right: ''
+			},
+			weekMode:'liquid',
+			height:420,
+			fixedWeekCount :false,	
+			//dayNames: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"],
+			dayClick: function(date, allDay, jsEvent, view) { 
+				if(boolStr){
+					if($(this).hasClass('bg-color')){
+						$(this).removeClass('bg-color')
+					}else{
+						$(this).addClass('bg-color')
+					}	
+				}
+				  
+			},
+			eventMouseover :function(event,jsevent,view){
+				console.log(event+"|||||"+jsevent+'|||||'+view)
+			},
+			selectable: true,
+			selectHelper: true,
+			select: function(start, end, allDay) {
+				console.log(formateDate(start._d,'-'));
+				// var title = prompt('Event Title:');
+				// if (title) {
+				// 	calendar.fullCalendar('renderEvent',
+				// 		{
+				// 			title: title,
+				// 			start: start,
+				// 			end: end,
+				// 			allDay: allDay
+				// 		},
+				// 		true // make the event "stick"
+				// 	);
+				// }
+				// calendar.fullCalendar('unselect');
+			},
+			editable: true,
+			events: [
+				{
+					title: 'All Day Event',
+					start: new Date(y, m, 1)
+				},
+				{
+					title: 'Long Event',
+					start: new Date(y, m, d-5),
+					end: new Date(y, m, d-4)
+				},
+				{
+					id: 999,
+					title: 'Repeating Event',
+					start: new Date(y, m, d-3, 16, 0),
+					allDay: false
+				},
+				{
+					id: 999,
+					title: 'Repeating Event',
+					start: new Date(y, m, d+4, 16, 0),
+					allDay: false
+				},
+				{
+					title: 'Meeting',
+					start: new Date(y, m, d, 10, 30),
+					allDay: false
+				},
+				{
+					title: 'Lunch',
+					start: new Date(y, m, d, 12, 0),
+					end: new Date(y, m, d, 14, 0),
+					allDay: false
+				},
+				{
+					title: 'Birthday Party',
+					start: new Date(y, m, d+1, 19, 0),
+					end: new Date(y, m, d+1, 22, 30),
+					allDay: false
+				},
+				{
+					title: 'Click for Google',
+					start: new Date(y, m, 28),
+					end: new Date(y, m, 29),
+					url: 'http://google.com/'
+				}
+			]
+			//边框
+			,eventColor: '#c4eaf6'
+			//背景
+			,eventBackgroundColor :'#e9f4ff',
+			//文字
+			eventTextColor: '#333',
+			eventRender: function(event, element) {
+		        console.log(event)
+		        console.log(element)
+		    },
+			//不显示具体时间
+            allDayDefault: 'false',
+			//编辑日程
+			eventClick: function(calEvent, jsEvent, view) {
+				var title = window.prompt('title:');
+				if(title) {
+					calEvent.title = title;
+					$('#calendar').fullCalendar( 'renderEvent', calEvent )
+					//发请求
+					// $.ajax({
+					// 	url: '',
+					// 	type: 'post',
+					// 	data: {id: calEvent.id, title: calEvent.title},
+					// 	success:function() {
+
+					// 	}
+					// });
+				}
+			},
+			eventSource: [
+				{
+					events:function(start, end, timezone,callback){
+						//调用外部函数请求数据，用type做区分
+						//callAjax('project', callback);
+					}
+				},{
+					events:function(start, end, timezone,callback){
+						//调用外部函数请求数据，用type做区分
+						//callAjax('miu', callback);
+					}
+				}
+			]
+		});
+
+		//设置按钮bool值
+		$('#cal-button').on('click',function(){
+			boolStr = !boolStr;
+		})
+
+		
+	});
+	/**
+	 * 请求数据
+	 * */
+	function callAjax(type,callback){
+
+		$.ajax({
+			type: "GET",
+			url: "/projects/{{project.id}}/get_events/",
+			dataType: "json",
+			data: {"data":type},
+			success: function(response){
+				data = eval("(" + response + ")")
+
+				var events = [];
+
+				for(i=0;i<data.length;i++){
+
+					events.push({
+						id: data[i].pk,
+						title: data[i].fields['title'],
+						start: data[i].fields['start'],
+						end: data[i].fields['end'],
+						className: "event",
+						defaultTimedEventDuration: "00:30:00"
+					});
+				}
+				callback(events);
+			}
+		});
+
+	}
+	/**
+	 * 格式时间，增加中间连接符
+	 * @param  {[type]} date [日期]
+	 * @param  {[type]} str  [连接字符串]
+	 * @return {[type]}      [字符串]
+	 * @eg  formateDate('Thu Sep 15 2016 08:00:00 GMT+0800 (CST)','-')
+	 */
+	function formateDate(date,str){
+		var date = new Date(date);
+		var y = date.getFullYear();
+		var m = date.getMonth().length>1?date.getMonth():'0'+date.getMonth();
+		var d = date.getDate();
+		var arr = [y,m,d];
+		return arr.join(str);
+	}
+	/**
+	 * 根据已知数据选中日期,
+	 * @param {[array]} data ['2016-09-12','2016-09-11']
+	 */
+	function setDayByData(data){
+		//获取所有td
+		var $arr = $('.fc-day');
+		// $.each($arr,function(k,v){
+		// 	$.each(data,function(m,n){
+		// 		if($(v).attr('data-date')==n){
+		// 			$(v).addClass('bg-color')
+		// 		}
+		// 	})		
+		// })
+	}
+	/**
+	 * 获取所有选中日期
+	 * @return {[type]} [description]
+	 */
+	function getAllData(){
+		//获取所有td
+		var $arr = $('.fc-highlight');
+		//获取选中的td
+		var dataArr = [];
+		$.each($arr,function(k,v){
+			if($(v).hasClass('bg-color')){
+				dataArr.push($(v).attr('data-date'))
+			}
+		})
+		return dataArr;
+	}
+	$('#calendar').on('mouseenter mouseleave','.bg-color', function (event) {
+		if (event.type == 'mouseenter') {
+			console.log('讲究将就');
+			$('#cshowhide').show()
+			//$(this).find('i').show();
+		} else if (event.type == 'mouseleave') {
+			$('#cshowhide').hide()
+			//$(this).find('i').hide();
+		}
+	});
+</script>
+</head>
+<body>
+<div id="cal-container">
+	<div id='calendar'></div>
+	<div id="cal-button"><button>button</button></div>	
+</div>
+
+</body>
+</html>

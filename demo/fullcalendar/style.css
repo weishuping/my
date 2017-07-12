@@ -1,0 +1,24 @@
+body {
+	margin-top: 40px;
+	text-align: center;
+	font-size: 14px;
+	font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+}
+button {
+	outline: none;
+}
+#cal-container {
+	position: relative;
+	width: 900px;
+}
+#calendar {
+	cursor: pointer;
+}
+#cal-button {
+	position: absolute;
+	top: 0px;
+	right: 10px;
+}
+// .bg-color {
+// 	background-color: green;	
+// }
