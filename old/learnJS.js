@@ -79,7 +79,7 @@ function toUp(arr) {
     })
 }
 toUp(arr);*/
-var arr = [1,2, 3, 4,5, 7, 11, 13];
+var arr = [1, 2, 3, 4, 5, 7, 11, 13];
 // arr.filter(function(elem) {
 // 	var flag = true ;
 //        if(elem<2){
@@ -178,14 +178,14 @@ function createStudent(name) {
 var xiaoming = createStudent('sam');
 xiaoming.run();*/
 /*Student 构造函数*/
-function Student(props) {
-	this.name = props.name;
-	this.x = props.x;
-}
-Student.prototype.hello = function() {
-	console.log(this.name)
-	alert(this.name);
-}
+// function Student(props) {
+// 	this.name = props.name;
+// 	this.x = props.x;
+// }
+// Student.prototype.hello = function() {
+// 	console.log(this.name)
+// 	alert(this.name);
+// }
 /*基于Student扩展primaryStudent 构造函数*/
 /*function PrimaryStudent(props) {
 	Student.call(this, props);
