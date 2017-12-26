@@ -100,12 +100,21 @@
     <script src="../jquery-1.11.2.js"></script>
     <script src="./index.js"></script>
     <script>
-        $('table').tableC({
+        $('table').freeTable({
+            'flag': 'fixedFront',
             'size': 5,
             'fontSize': 14,
             'fixWidth': 60,
             'reWidth': 150
         });
+        // $('table').freeTable({
+        //     'flag': 'fixedHead',
+        //     //表头固定，指定列按照给定的宽度来设置。如果没有给定，按照默认值来设置
+        //     'fixHeadWidth': {
+        //         variableW: [150, 170, 100],
+        //         defaultW: [80]
+        //     }
+        // });
     </script>
 </body>
 
