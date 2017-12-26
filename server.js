@@ -1,5 +1,5 @@
 var http = require('http');
-
+//测试
 http.createServer(function (request,response) {
 	//发送HTTP头部
 	//HTTP: 状态值 200 成功
