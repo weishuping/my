@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="uft-8">
+
+        <title>滚动的小球</title>
+        <style type="text/css">
+            body {
+                padding-top: 200px;
+            }
+            .dead-line {
+                border-top: 1px solid #cecece;
+                width: 100%;
+            }
+            #ball {
+                
+            }
+            /* .transitions {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                background-color: red;
+                -webkit-transition: background-color 1s ease-out, width 1s linear, height 1s linear;
+                -moz-transition: background-color 1s ease-out, width 1s linear, height 1s linear;
+                -o-transition: background-color 1s ease-out, width 1s linear, height 1s linear;
+
+            } */
+            .transitions {
+                width: 50px;
+                height: 80px;
+                border-radius: 50%;
+                background-color: red;
+                -webkit-transition: all 4s linear;
+                -moz-transition: all 4s linear;
+                -o-transition: all 4s linear;
+                transition: all 4s linear;
+                }
+            .transitions:hover {
+                background-color: #00ffff;
+                width: 100px;
+                height: 100px;
+            }
+            #ball {
+                width: 100%;
+            }
+            #ball:hover .transitions{
+                margin-left: 90%;
+                -webkit-transform: rotate(360deg);
+                -moz-transform: rotate(360deg);
+                -o-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+            #square {
+                position: relative;
+                width: 100%;
+            }
+            .cont {
+                position: absolute;
+                background: red;
+            }
+            @keyframes myfirst {
+                0% {background: red; left: 0; top: 0}
+                25%  {background: yellow; left:200px; top:0px;}
+                50%  {background: blue; left:200px; top:200px;}
+                75%  {background: green; left:0px; top:200px;}
+                100% {background: red; left:0px; top:0px;}
+            }
+            @-webkit-keyframes myfirst {
+                0%   {background: red; left:0px; top:0px;}
+                25%  {background: yellow; left:200px; top:0px;}
+                50%  {background: blue; left:200px; top:200px;}
+                75%  {background: green; left:0px; top:200px;}
+                100% {background: red; left:0px; top:0px;}
+            }
+            .cont {
+                animation: myfirst 5s linear;
+                width: 100px;
+                height: 100px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="ball" >
+            <div class="transitions">
+            </div>
+        
+        </div>
+        <div id="square">
+                <div class="cont"></div>
+            </div>
+        <p class="dead-line"></p>
+    <!-- <button type="button" click="getAge()"></button> -->
+    <script src="js/jquery-1.11.2.js" type="text/javascript"></script>
+    </body>
+</html>
