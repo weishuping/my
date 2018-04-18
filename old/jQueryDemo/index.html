@@ -43,12 +43,40 @@
             position: absolute;
             background-color: #fff;
         }
+        #evanyou {
+            width: 500px;
+            height: 500px;
+        }
+        /* 回到顶部 */
+        #back-to-top {
+            position: fixed;
+            right: 50px;
+            z-index: 9;
+            width: 70px;
+            height: 900px;
+            background: url('../popup.png');
+            transition: height 0.5s;
+            cursor: pointer;
+        }
+        #boy {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 200px;
+            height: 100px;
+            background: url('../boy.png') no-repeat;    
+            background-size: 100%;
+            transform: translateY(3px);        
+        }
+        #boy:hover {
+            transform: translateY(0);        
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <div id="wrapper">
+        <!-- <div id="wrapper">
             <table width="100%" id="tid">
                 <thead>
                     <tr>
@@ -95,19 +123,31 @@
                 </tbody>
 
             </table>
-        </div>
+        </div> -->
+
     </div>
+    <p>飘扬的彩带</p>
+    <canvas id="evanyou" width="1920" height="934"></canvas>
+    <p>回到顶部效果</p>
+    <div id="back-to-top" class="red" data-scroll="body">回到顶部</div>
+    <p>hello</p><p>hello</p><p>hello</p><p>hello</p><p>hello</p><p>hello</p><p>hello</p><p>hello</p><p>hello</p><p>hello</p><p>hello</p><p>hello</p>
+    <p>hello</p><p>hello</p><p>hello</p>
+    <p>hello</p><p>hello</p><p>hello</p><p>hello</p><p>hello</p><p>hello</p>
+       <p>hello</p><p>hello</p><p>hello</p><p>hello</p><p>hello</p><p>hello</p>
+       <p>hello</p><p>hello</p><p>hello</p><p>hello</p><p>hello</p><p>hello</p>
+
+    <div id="boy"></div>
     <script src="../jquery-1.11.2.js"></script>
     <script src="./index.js"></script>
     <script>
         //测试
-        $('table').freeTable({
-            'flag': 'fixedFront',
-            'size': 5,
-            'fontSize': 14,
-            'fixWidth': 60,
-            'reWidth': 150
-        });
+        // $('table').freeTable({
+        //     'flag': 'fixedFront',
+        //     'size': 5,
+        //     'fontSize': 14,
+        //     'fixWidth': 60,
+        //     'reWidth': 150
+        // });
         // $('table').freeTable({
         //     'flag': 'fixedHead',
         //     //表头固定，指定列按照给定的宽度来设置。如果没有给定，按照默认值来设置
@@ -116,6 +156,75 @@
         //         defaultW: [80]
         //     }
         // });
+        //酷炫彩带效果
+        var c = document.getElementById('evanyou'),
+            x = c.getContext('2d'),
+            pr = window.devicePixelRatio || 1,
+            w = window.innerWidth,
+            h = window.innerHeight,
+            f = 90,
+            q,
+            m = Math,
+            r = 0,
+            u = m.PI * 2,
+            v = m.cos,
+            z = m.random;
+        c.width = w * pr;
+        c.height = h * pr;
+        x.scale(pr, pr);
+        x.globalAlpha = 0.6;
+        function evanyou() {
+            x.clearRect(0, 0, w, h)
+            q = [{ x: 0, y: h*.7 + f}, {x: 0, y: h*.7 - f}]
+            while(q[1].x < w + f) d(q[0], q[1])
+        }
+        function d(i, j) {
+            x.beginPath()
+            x.moveTo(i.x, i.y)
+            x.lineTo(j.x, j.y)
+            var k = j.x + (z() * 2 -0.25) * f,
+                n = y(j.y)
+            x.lineTo(k, n)
+            x.closePath()
+            r-= u / 50
+            x.fillStyle = '#' + (v(r) * 127 + 128 << 16 | v(r + u / 3) * 127 + 128 << 8 | v(r + u / 3 * 2) * 127 + 128).toString(16)
+            x.fill()
+            q[0] = q[1]
+            q[1] = {x: k, y: n}
+        }
+        function y(p) {
+            var t = p + (z() * 2 - 1.1) * f
+            return (t > h || t < 0) ? y(p): t
+        }
+        document.onclick = evanyou
+        document.ontouchstart = evanyou
+        evanyou();
+
+        // 
+        window.onload = function() {
+            $.scrollto = function(dom, scrolltime) {
+                $(dom).click(function() {
+                    var dom = $(this).attr("data-scroll");
+                    $(this).addClass("active").siblings().removeClass("active");
+                    $("html, body").animate({
+                        scrollTop: $(dom).offset().top
+                    }, scrolltime);
+                    return false;
+                });
+            };
+            if($(window).width > 800) {
+                var backto = $("#back-to-top");
+                var backHeight = $(window).height() - 980 + 'px';
+                $(window).scroll(function() {
+                    if($(window).scrollTop > 700 && backto.css('top') === '-900px') {
+                        backto.css('top', backHeight);
+                    } else if($(window).scrollTop() <= 700 && backto.css('top') !== '-900px') {
+                        backto.css('top', '-900px');
+                    }
+                })
+            }
+            $.scrollto("#back-to-top", 800);
+        }
     </script>
 </body>
 
