@@ -128,6 +128,52 @@
                 75% { transform: translateY(-50px);     }
                 100% { transform: translateY(0); }
             }
+
+            /* 震动条 */
+            .music {
+                list-style-type: none;
+                height: 50px;
+                position: relative;
+            }
+            .music li {
+                width: 10px;
+                height: 50px;
+                float: left;
+                margin-right: 3px;
+                position: relative;
+            }
+            .music li span {
+                width: 100%;
+                position: absolute;
+                bottom: 0;
+            }
+            .li1 {
+                background: #1ec7e6;
+                animation: waves 0.8s linear 0s infinite alternate;
+            }
+            .li2 {
+                background: #1ee6cb;
+                animation: waves 0.9s linear 0s infinite alternate;
+            }
+            .li3 {
+                background: #11e2b5;
+                animation: waves 1s linear 0s infinite alternate;
+            }
+            .li4 {
+                background: #1ee689;
+                animation: waves 0.9s linear 0s infinite alternate;
+            }
+            .li5 {
+                background: #e3e61e;
+                animation: waves 0.8s linear 0s infinite alternate;
+            }
+            @keyframes waves {
+                0% { height: 20%;     }
+                25% { height: 40%;     }
+                50% { height: 60%;     }
+                75% { height: 100%;     }
+                100% { height: 50%; }
+            }
         </style>
     </head>
     <body>
@@ -189,6 +235,17 @@
             <div class="logo2"><img src="img/circle.png"/></div>
             <div class="logo-text"><img src="img/text.png"/></div>
         </div>
+        <p>音乐播放效果</p>
+        <div>
+            <ul class="music">
+                <li><span class="li1"></span></li>
+                <li><span class="li2"></span></li>
+                <li><span class="li3"></span></li>
+                <li><span class="li4"></span></li>
+                <li><span class="li5"></span></li>
+            </ul>
+        </div>
+        <p>Loading效果</p>
         <script src="js/jquery-1.11.2.js" type="text/javascript"></script>
     </body>
 </html>
