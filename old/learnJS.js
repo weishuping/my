@@ -207,3 +207,170 @@ var xiaoming = new PrimaryStudent({
 });
 xiaoming.hello();
 xiaoming.getGrade(0);*/
+
+//绘制表格
+
+$('.table-graph').on('click', '.showvalue', function(e) {
+	console.log(e)
+})
+
+var data =  {
+	"pk_wa_prmlv": [
+		{
+			"name": "一档",
+			"code": 1,
+			"pk": "1001G410000000007AQD"
+		},
+		{
+			"name": "二档",
+			"code": 2,
+			"pk": "1001G410000000007AQE"
+		},
+		{
+			"name": "三档",
+			"code": 3,
+			"pk": "1001G410000000007AQF"
+		}
+	],
+	"grdmsg": [
+		{
+			"secname": null,
+			"prmname": "一档",
+			"prmcode": 1,
+			"value": 12,
+			"seccode": null,
+			"pkprm": "1001G410000000007AQD",
+			"pksec": null
+		},
+		{
+			"secname": null,
+			"prmname": "二档",
+			"prmcode": 2,
+			"value": 23,
+			"seccode": null,
+			"pkprm": "1001G410000000007AQE",
+			"pksec": null
+		},
+		{
+			"secname": null,
+			"prmname": "三档",
+			"prmcode": 3,
+			"value": 34,
+			"seccode": null,
+			"pkprm": "1001G410000000007AQF",
+			"pksec": null
+		}
+	],
+	"pk_wa_seclv": [
+		
+	]
+}
+
+var level = data.pk_wa_prmlv;
+var filing = data.pk_wa_seclv;
+var body = data.grdmsg;
+var html = [];
+
+//表体
+var len = body.length;
+var breakLen = filing.length;
+html.push('<div class="table-graph">');
+html.push('<div class="graph-head">');        
+
+html.push('<span class="levelhead">级别/档别</span>');
+
+if(!breakLen) {
+	html.push('<span class="level">' + '暂无档别' + '</span>');
+}
+filing.forEach(function(item) {
+	html.push('<span class="level">' + item.name + '</span>');
+});
+html.push('</div>');
+
+for(var i=0; i<len;i++) {
+	if(breakLen)
+	{if(i==0 || i % breakLen === 0) {
+		html.push('<div class="graph-head">');    
+		html.push('<span class="levelhead">' + body[i].prmname + '</span>');
+	}
+	html.push('<span class="showvalue"  data-pkprm='+ body[i].pkprm+' data-pksec='+ body[i].pksec+' name-pkprm='+ body[i].prmname+' name-pksec='+ body[i].secname+'>' + body[i].value + '</span>');
+	// obj.push(
+	// 	{row: body[i].prmname, value: body[i].value, pkprm: body[i].pkprm, pksec: body[i].pksec}
+	// );
+	// if( i % breakLen === 0) {
+	// 	b+=1;
+	// }
+	if((i+1) % breakLen === 0) {
+		html.push('</div>');
+	}} else {
+		html.push('<div class="graph-head">'); 
+		html.push('<span class="levelhead">' + body[i].prmname + '</span>');
+		html.push('<span class="showvalue"  data-pkprm='+ body[i].pkprm+' data-pksec='+ body[i].pksec+' name-pkprm='+ body[i].prmname+' name-pksec='+ body[i].secname+'>' + body[i].value + '</span>');
+		html.push('</div>');
+	}
+}
+html.push('</div>');
+// console.log(obj)
+
+$('body').append(html.join(''))
+
+//观察者模式，创建松散耦合代码的技术，定义对象间一对多的依赖关系，当一个对象的状态发生变化，所有依赖他的对象都将得到通知
+//基本模式：
+EventTarget.prototype = {
+	constructor: EventTarget,
+	addHandler: function(type, handler) {
+		if(typeof this.handlers[type] == "undefined") {
+			this.handlers[type] = [];
+		}
+		this.handlers[type].push(handler);
+	},
+	fire: function(event) {
+		if(!event.target){
+			event.target = this;
+		}
+		if(this.handler[event.type] instanceof Array) {
+			var handlers = this.handlers[event.type];
+			for(var i=0, len= handlers.length; i<len; i++) {
+				handlers[i](event);
+			}
+		}
+	},
+	removeHandler: function(type, handler) {
+		if(this.handlers[type] instanceof Array) {
+			var handlers = this.handlers[type];
+			for(var i=0, len= handlers.length; i<len; i++) {
+				break;
+			}
+			handlers.splice(i, 1);
+		}
+	}
+}
+//自定义事件
+var Event = {
+	on: function(eventName, callback) {
+		if(!this.handlers) {
+			this.handlers = {};
+		}
+		if(!this.handlers[eventName]) {
+			this.handlers[eventName] = []
+		}
+		this.handlers[eventName].push(callback);
+	},
+	emit: function(eventName) {
+		if(this.handlers[eventName]) {
+			for(var i=0; i<this.handlers[arguments[0]].length; i++) {
+				this.handlers[arguments[0]][i](arguments[1]);
+			}
+		}
+	}	
+}
+// 测试1
+Event.on('test', function (result) {
+    console.log(result);
+});
+Event.on('test', function () {
+    console.log('test');
+});
+Event.emit('test', 'hello world'); // 输出 'hello world' 和 'test'
+
+
