@@ -190,7 +190,7 @@
     <div contenteditable="true">
 
     </div>
-    <p>找寻div下面的某个绑定值，无论儿子 孙子等</p>
+    <!-- <p>找寻div下面的某个绑定值，无论儿子 孙子等</p>
     <div class="one">
         1
         <div class="two">
@@ -202,7 +202,7 @@
             </div>
             <span id="sunzi">找爷爷</span>
         </div>
-    </div>
+    </div> -->
     <p id="addTwo" onclick="addTwo(1,2)">用异或和与操作 进行数值+</p>
     <div id="clearBoth2">
         <div style="float: left;">1</div>
@@ -215,6 +215,32 @@
     </div>
     <button type="text" style="display: inline-block" onclick="clickButton()">快速排序</button>
     <a>排序前[2, 8, 5, 1, 3] </a> <a>排序后<span id ="quickSort"></span> </a>
+    <p>测试浮动元素</p>
+    浮动元素的margin不会超过其包含块的padding。如果想要超出，可以设置。
+    <div style="padding: 20px;border: 1px solid;">
+        正常
+        <span style="float: left;border: 1px solid;margin: 5px;">浮动</span>
+    </div>
+    两个浮动元素，一个向左浮动，一个向右浮动，左浮动的marginRight不会和右浮动的marginLeft相邻。
+    <div style="width: 100px;">
+        <span style="float: left; margin-right: 10px">1</span>
+        <span style="float: right; margin-left: 10px">2</span>    
+    </div>
+    !!!!如果有多个浮动元素，其后面元素的高度不会超过前面的
+    <div style="width: 100px; height: 20px;">
+        <span style="float: left; margin-right: 10px;width: 10px;display: inline-block;">111</span>
+        <span style="float: left; margin-right: 10px;width: 10px;display: inline-block;">22222</span>    
+    </div>
+    如果有非浮动元素和浮动元素，非浮动元素在前面，则浮动元素不会高于非浮动元素
+    <div style="width: 100px; height: 20px;">
+        <span style="margin-right: 10px;width: 10px;display: inline-block;background: slateblue">111</span>
+        <div style="background: salmon;">333</div>
+        <span style="float: left; margin-right: 10px;width: 10px;display: inline-block;">22222</span>    
+    </div>
+    <p>高度塌陷</p>
+    <div>
+        <span style="float: left;">eeee</span>
+    </div>
     <script src="my.js" type="text/javascript" charset="utf-8"></script>
 </body>
 
